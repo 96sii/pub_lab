@@ -1,8 +1,8 @@
-class Customer:
+from src.person import Person
+
+class Customer(Person):
     def __init__(self, name, age):
-        self.name = name
-        self.wallet = 0 
-        self.age = age
+        super().__init__(name, age)
         self.drunk = 0
 
     def add_money(self, money):

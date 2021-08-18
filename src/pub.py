@@ -3,6 +3,7 @@ class Pub:
         self.name = name
         self.till = 0
         self.drinks = []
+        self.employees = []
 
     def check_age(self, customer):
         if customer.age >= 18:
@@ -25,3 +26,9 @@ class Pub:
             total += drink.price
         return total
             
+    def pay_employees(self):
+        for employee in self.employees:
+            employee.wallet += employee.wage
+    
+    def add_employee(self, employee):
+        self.employees.append(employee)
