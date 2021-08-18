@@ -8,11 +8,13 @@ class Customer:
     def add_money(self, money):
         self.wallet += money
 
-    def buy_drink(self, drink, pub):
-        if pub.check_age(self) == True and self.drunk < 100:
-            self.wallet -= drink.price
-            pub.till += drink.price
-            self.drunk += drink.alcohol_level
+    def buy_drink(self, drink):
+        self.wallet -= drink.price
+        self.drunk += drink.alcohol_level
+
+    def buy_food(self, food):
+        self.wallet -= food.price
+        self.drunk -= food.rejuvination_level
         
 
-        
+    

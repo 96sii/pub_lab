@@ -10,6 +10,7 @@ class TestPub(unittest.TestCase):
         self.customer2 = Customer("Bobby", 6)
         self.customer3 = Customer("Karen", 27)
         self.drink = Drink("Bacardi", 4, 20)
+        self.drink_2 = Drink("Beer", 5, 15)
         
 
     def test_pub_has_name(self):
@@ -18,27 +19,26 @@ class TestPub(unittest.TestCase):
     def test_customer_buy_drink(self):
         
         self.customer.add_money(10)
-        self.customer.buy_drink(self.drink, self.pub)
+        self.pub.serve_drink(self.customer, self.drink)
         self.assertEqual(4, self.pub.till)
         self.assertEqual(6, self.customer.wallet)
 
     def test_customer_buy_drink_fails(self):
         
         self.customer2.add_money(10)
-        self.customer2.buy_drink(self.drink, self.pub)
+        self.pub.serve_drink(self.customer2, self.drink)
         self.assertEqual(0, self.pub.till)
         self.assertEqual(10, self.customer2.wallet)
 
     def test_customer_buy_drink_too_drunk(self):
         
         self.customer.add_money(30)
-        self.customer.buy_drink(self.drink, self.pub)
-        self.customer.buy_drink(self.drink, self.pub)
-        self.customer.buy_drink(self.drink, self.pub)
-        self.customer.buy_drink(self.drink, self.pub)
-        self.customer.buy_drink(self.drink, self.pub)
-        self.customer.buy_drink(self.drink, self.pub)
-        
+        self.pub.serve_drink(self.customer, self.drink)
+        self.pub.serve_drink(self.customer,self.drink)
+        self.pub.serve_drink(self.customer,self.drink)
+        self.pub.serve_drink(self.customer,self.drink)
+        self.pub.serve_drink(self.customer,self.drink)
+        self.pub.serve_drink(self.customer,self.drink)
         self.assertEqual(20, self.pub.till)
         self.assertEqual(10, self.customer.wallet)
 
@@ -48,5 +48,14 @@ class TestPub(unittest.TestCase):
     
     def test_pub_id_fails(self):
         self.assertFalse(self.pub.check_age(self.customer2))
+
+    def test_pub_stock(self):
+        self.pub.add_drink(self.drink)
+        self.pub.add_drink(self.drink_2)
+        self.assertEqual(2, len(self.pub.drinks))
+
+    def test_stock_value(self):
+        self.pub.add_drink(self.drink)
+        self.pub.add_drink(self.drink_2)
+        self.assertEqual(9, self.pub.stock_value())
     
-   
